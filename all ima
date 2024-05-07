@@ -1,0 +1,35 @@
+httpd
+
+FROM httpd
+COPY index.html /usr/local/apache2/htdocs
+
+docker build -t kalo .
+docker run --name bako -p 8002:80 kalo
+_______________________________________
+nginx
+
+FROM nginx
+COPY index.html /usr/share/nginx/html
+
+docker build -t kalo .
+docker run --name bako -p 8002:80 kalo
+_______________________________________
+apache/ubuntu
+
+FROM ubuntu/apache2
+COPY index.html /var/www/html
+EXPOSE 80
+CMD ["apache2ctl","-D","FOREGROUND"]
+
+docker build -t kalo .
+docker run --name bako -p 8002:80 kalo
+________________________________________
+python3
+
+FROM python:3
+RUN mkdir /prog
+COPY p1.py /prog/
+CMD ["python3","/prog/p1.py"]
+
+docker build -t ppp .
+docker run -it --name cop ppp
